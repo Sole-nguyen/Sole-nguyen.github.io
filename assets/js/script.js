@@ -89,6 +89,7 @@ if (searchInput && searchResults) {
     { title: 'HCMUTE ISC Gen 2',   desc: 'Member of HCMUTE Information Security Club.',                    icon: 'bx bx-group',         cat: 'About',        url: 'about.html'        },
     { title: 'Experience',         desc: 'CTF competitions, security research, team activities.',            icon: 'bx bx-briefcase',     cat: 'Experience',   url: 'experience.html'   },
     { title: 'Projects',           desc: 'Personal security tools, CTF frameworks, labs.',                  icon: 'bx bx-code-alt',      cat: 'Projects',     url: 'projects.html'     },
+    { title: 'Blog',               desc: 'Articles, tutorials, and insights on cybersecurity.',             icon: 'bx bx-news',          cat: 'Blog',         url: 'blog.html'         },
     { title: 'Writeups',           desc: 'CTF writeups: Web Exploitation, Cryptography, Pwn.',             icon: 'bx bx-edit-alt',      cat: 'Writeups',     url: 'writeups.html'     },
     { title: 'Certificates',       desc: 'Security certifications and course completions.',                  icon: 'bx bx-certification', cat: 'Certificates', url: 'certificates.html' },
     { title: 'Rewards',            desc: 'CTF competition awards and achievements.',                         icon: 'bx bx-trophy',        cat: 'Rewards',      url: 'rewards.html'      },
