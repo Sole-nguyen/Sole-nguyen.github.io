@@ -142,3 +142,51 @@ if (sidebarSearch) {
     }
   });
 }
+
+// ===== Writeup Categories Expand/Collapse =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Category headers
+  document.querySelectorAll('.category-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const section = header.parentElement;
+      const isExpanded = section.classList.contains('expanded');
+      
+      // Close all other categories
+      document.querySelectorAll('.category-section').forEach(s => {
+        if (s !== section) {
+          s.classList.remove('expanded');
+          // Also close all platforms inside
+          s.querySelectorAll('.platform-section').forEach(p => p.classList.remove('expanded'));
+        }
+      });
+      
+      // Toggle current category
+      section.classList.toggle('expanded', !isExpanded);
+      
+      // If closing, also close all platforms inside
+      if (isExpanded) {
+        section.querySelectorAll('.platform-section').forEach(p => p.classList.remove('expanded'));
+      }
+    });
+  });
+  
+  // Platform headers
+  document.querySelectorAll('.platform-header').forEach(header => {
+    header.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent category toggle
+      const section = header.parentElement;
+      const isExpanded = section.classList.contains('expanded');
+      
+      // Close all other platforms in the same category
+      const category = section.closest('.category-section');
+      category.querySelectorAll('.platform-section').forEach(p => {
+        if (p !== section) {
+          p.classList.remove('expanded');
+        }
+      });
+      
+      // Toggle current platform
+      section.classList.toggle('expanded', !isExpanded);
+    });
+  });
+});
