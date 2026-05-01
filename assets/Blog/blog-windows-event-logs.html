@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windows Event Logs and System Monitor Research — Sole_f1t</title>
+  <meta name="description" content="A comprehensive deep dive into Windows logging mechanisms and the use of Sysmon for security monitoring." />
+  <link rel="icon" href="avatar.svg?v=2" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/about.css" />
+  <link rel="stylesheet" href="assets/css/post.css" />
+</head>
+<body>
+
+  <div class="bg-animation" aria-hidden="true">
+    <div class="shape shape-red"></div>
+    <div class="shape shape-purple"></div>
+    <div class="shape shape-blue"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <nav class="sidebar closed" aria-label="Main navigation">
+    <header>
+      <div class="image-text">
+        <span class="image"><img src="assets/img/avatar.png" alt="Sole_f1t avatar" loading="lazy" /></span>
+        <div class="text logo-text">
+          <span class="name">Sole_f1t</span>
+          <span class="profession">CTF Player · Security</span>
+        </div>
+      </div>
+      <i class="bx bx-chevron-right toggle"></i>
+    </header>
+    <div class="menu-bar">
+      <div class="menu">
+        <li class="search-box">
+          <i class="bx bx-search icon"></i>
+          <input type="text" placeholder="Search…" aria-label="Search" />
+        </li>
+        <ul class="menu-links">
+          <li><a href="index.html"><i class="bx bx-home icon"></i><span class="text">Home</span></a></li>
+          <li><a href="about.html"><i class="bx bx-user icon"></i><span class="text">About</span></a></li>
+          <li><a href="experience.html"><i class="bx bx-briefcase icon"></i><span class="text">Experience</span></a></li>
+          <li><a href="projects.html"><i class="bx bx-code-alt icon"></i><span class="text">Projects</span></a></li>
+          <li><a href="blog.html"><i class="bx bx-news icon"></i><span class="text">Blog</span></a></li>
+          <li><a href="writeups.html"><i class="bx bx-edit-alt icon"></i><span class="text">Write-ups</span></a></li>
+          <li><a href="certificates.html"><i class="bx bx-certification icon"></i><span class="text">Certificates</span></a></li>
+          <li><a href="rewards.html"><i class="bx bx-trophy icon"></i><span class="text">Rewards</span></a></li>
+          <li><a href="contact.html"><i class="bx bx-envelope icon"></i><span class="text">Contact</span></a></li>
+          <li><a href="search.html"><i class="bx bx-search-alt icon"></i><span class="text">Search</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="index.html"><i class="bx bx-home"></i><span>Home</span></a></li>
+      <li><a href="about.html"><i class="bx bx-user"></i><span>About</span></a></li>
+      <li><a href="blog.html"><i class="bx bx-news"></i><span>Blog</span></a></li>
+      <li><a href="writeups.html"><i class="bx bx-edit-alt"></i><span>Write-ups</span></a></li>
+      <li><a href="search.html"><i class="bx bx-search-alt"></i><span>Search</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="l-main">
+    <div class="page-wrapper">
+
+      <div class="post-hero">
+        <h1 class="post-title">Windows Event Logs and System Monitor Research</h1>
+        <div class="post-meta">
+          <span class="post-tag">Research</span>
+          <span class="post-date"><i class="bx bx-calendar"></i> May 2, 2026</span>
+          <span class="post-author"><i class="bx bx-user"></i> Nguyễn Hữu Duy Nhất</span>
+        </div>
+      </div>
+
+      <div class="content-card markdown-content">
+        <h2>I. Khái niệm Windows Event Logs</h2>
+        
+        <h3>1.1. Khái niệm Windows Event Logs</h3>
+        <p>Windows Event Logs đóng vai trò là một nguồn chứng cứ điện tử cốt lõi. Hệ thống này ghi nhận toàn diện các biến động liên quan đến software, hardware, OS, security. Service Windows Event Log chịu trách nhiệm quản lý các sự kiện, nhật ký sự kiện,… nó thu thập các sự kiện từ nhiều nguồn khác nhau và lưu trữ tập trung tại một thư mục. Các sự kiện này giúp cho ta biết được các thao tác đã xảy ra trên hệ thống, những sự kiện xảy ra vào thời gian nào, tham chiếu đến user cụ thể liên quan tới sự kiện hay hành vi nào đó hoặc là các thông tin khác trong hệ thông.</p>
+
+        <h3>1.2. Windows Event Logs được tọa lạc ở chộ nào?</h3>
+        <p>Hiện nay, với các bản Windows mới thì Winlog được lưu trữ tại: <code>%systemroot%\System32\winevt\logs</code><br>
+        Event log có định dạng XML và phần mở rộng là .evtx.</p>
+
+        <h3>1.3. Format Log</h3>
+        <p>Trước đây, từ phiên bản Win 2008 trở về trước thì các tệp log được ánh xạ trực tiếp và bộ nhớ, thì điều này là 1 vấn đề lớn trong việc quản lý bộ nhớ vì bộ nhớ luôn phải dành 1 không gian tầm 300MB chỉ để cho việc cấp phát các event log và tất nhiên hiệu suất sẽ bị giảm nếu dung lượng của bộ nhớ không lớn. Các user hồi xưa sẽ thường hay tắt logging đi để nâng cao hiệu suất bộ nhớ. Nhưng trong những bản Window sau này thì việc điều này đã được khắc phục, service Windows Event Log quản lý các event và event logs (logging events, querying events, subscribing to events, archiving event logs, and managing event metadata). Trong bộ nhớ lúc này chỉ chứa những header nhỏ với các đoạn mã 64KB nằm trong bộ nhớ và nó thực sự đã giải quyết được vấn đề quản lý bộ nhớ mà không làm giảm hiệu suất.</p>
+        <p>Định dạng của event log cũng thay đổi với extension là .EVTX và được lưu trữ ở định dạng XML, giúp việc giải mã cấu trúc nhật ký trở nên trực quan hơn và cũng dễ dàng để tạo bộ lọc hỗ trợ việc tìm kiếm.</p>
+
+        <h3>1.4. Event Types</h3>
+        <p>Có tổng cộng là 5 loại event khác nhau có thể được ghi lại, mỗi sự kiện đều phải thuộc 1 trong 5 loại này và mỗi loại sẽ có 1 biểu tượng khác nhau.</p>
+        
+        <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Event type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Error</strong></td>
+              <td>An event that indicates a significant problem such as loss of data or loss of functionality. For example, if a service fails to load during startup, an Error event is logged.</td>
+            </tr>
+            <tr>
+              <td><strong>Warning</strong></td>
+              <td>An event that is not necessarily significant, but may indicate a possible future problem. For example, when disk space is low, a Warning event is logged.</td>
+            </tr>
+            <tr>
+              <td><strong>Information</strong></td>
+              <td>An event that describes the successful operation of an application, driver, or service.</td>
+            </tr>
+            <tr>
+              <td><strong>Success Audit</strong></td>
+              <td>An event that records an audited security access attempt that is successful.</td>
+            </tr>
+            <tr>
+              <td><strong>Failure Audit</strong></td>
+              <td>An event that records an audited security access attempt that fails.</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>1.5. Các loại Log</h3>
+        <p>Window Event Logs có 3 loại tiêu chuẩn là Security, System, Application. Ngoài ra thì Winlog còn có các bản additional logs đã được thêm vào log chuyên biệt (còn gọi là Custom Log), Ex: Powershell, Task Scheduler,…</p>
+
+        <h4>A. Log tiêu chuẩn</h4>
+        <ul class="highlights">
+          <li><strong>Security</strong>: Lưu trữ các sự kiện liên quan đến Security và Audit của hệ thống. Ghi lại các hoạt động như: đăng nhập thành công/thất bại, thay đổi quyền hạn, truy cập tệp tin, v.v.</li>
+          <li><strong>System</strong>: Ghi lại các sự kiện sinh ra bởi hệ điều hành và các thành phần cốt lõi (driver, Windows Services). Rất quan trọng để khắc phục sự cố màn hình xanh (BSOD).</li>
+          <li><strong>Application</strong>: Ghi lại các sự kiện sinh ra bởi các phần mềm và ứng dụng của bên thứ ba.</li>
+        </ul>
+
+        <h4>B. Nhóm log chuyên biệt (Custom log,…)</h4>
+        <p>Cung cấp độ hiển thị (Visibility) cực kỳ sâu cho các ứng dụng cụ thể như PowerShell, Task Scheduler, và Windows Defender/Sysmon. Đây là chìa khóa để săn tìm mối đe dọa (Threat Hunting).</p>
+
+        <h2>II. Security logs và các ví dụ điển hình</h2>
+
+        <h3>2.1. Security Logs</h3>
+        <p>Security log mang tính bảo mật khắt khe: chỉ Admin mới có quyền truy cập và chỉ có tiến trình LSASS mới được phép ghi lại các sự kiện bảo mật.</p>
+
+        <h3>2.2. Các ví dụ điển hình</h3>
+
+        <h4>2.2.1. Tấn công Brute-Force Password</h4>
+        <p>Dấu hiệu nhận diện trọng yếu chính là sự xuất hiện đột biến và dày đặc của <strong>Event ID 4625 (An account failed to log on)</strong> trong một khoảng thời gian ngắn.</p>
+
+        <h4>2.2.2. Tracking Account Usage</h4>
+        <ul class="highlights">
+          <li><strong>Event ID 4624</strong>: Successful Logon.</li>
+          <li><strong>Event ID 4634 / 4647</strong>: Successful Logoff.</li>
+          <li><strong>Event ID 4672</strong>: Special Privileges Assigned.</li>
+        </ul>
+
+        <p>Trường <strong>Logon Type</strong> cung cấp ngữ cảnh quan trọng:</p>
+        <ul class="highlights">
+          <li><strong>Type 2 (Interactive)</strong>: Đăng nhập trực tiếp.</li>
+          <li><strong>Type 3 (Network)</strong>: Đăng nhập qua mạng (SMB share).</li>
+          <li><strong>Type 10 (RemoteInteractive)</strong>: Đăng nhập từ xa (RDP).</li>
+        </ul>
+
+        <h2>III. Sơ lược về System Monitor (Sysmon)</h2>
+
+        <h3>3.1 Sysmon Event ID</h3>
+        <ul class="highlights">
+          <li><strong>Event ID 1 (Process Creation)</strong>: Ghi nhận tiến trình mới kèm <code>CommandLine</code> và <code>ProcessGUID</code>.</li>
+          <li><strong>Event ID 8 (CreateRemoteThread)</strong>: Dấu hiệu của Process Injection.</li>
+          <li><strong>Event ID 11 (FileCreate)</strong>: Ghi nhận khi một tệp được tạo hoặc ghi đè.</li>
+          <li><strong>Event ID 3 (Network Connection)</strong>: Lưu vết kết nối TCP/UDP.</li>
+        </ul>
+
+        <h3>3.2 Ưu điểm vượt trội</h3>
+        <p>Sysmon cho phép lọc dữ liệu linh hoạt qua XML Schema, giúp giảm nhiễu và tập trung vào các hành vi đáng ngờ.</p>
+
+        <h2>IV. Mô phỏng lại 1 cuộc tấn công (PrintNightmare CVE-2021-34527)</h2>
+        <ul class="highlights">
+          <li><strong>Security Log (ID 4720/4732)</strong>: Phát hiện <strong>hệ quả</strong> (tài khoản <code>hacked</code> được tạo và cấp quyền Admin).</li>
+          <li><strong>Sysmon (ID 11/1)</strong>: Phát hiện <strong>hành vi</strong> (dịch vụ <code>spoolsv.exe</code> tạo file DLL lạ và sinh ra tiến trình con thực thi mã độc).</li>
+        </ul>
+
+        <h2>V. Kết luận</h2>
+        <p>Windows Event Logs và Sysmon là hai mảnh ghép bổ trợ hoàn hảo. Việc kết hợp cả hai nguồn dữ liệu giúp chuyên gia bảo mật không chỉ biết "ai đã vào nhà" mà còn biết chính xác "họ đã làm gì bên trong".</p>
+      </div>
+      
+      <div style="margin-top: 30px; text-align: center;">
+        <a href="blog.html" style="color: var(--accent); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+          <i class="bx bx-left-arrow-alt" style="font-size: 1.2rem;"></i> Back to Blog
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+    <i class="bx bx-chevron-up"></i>
+  </button>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

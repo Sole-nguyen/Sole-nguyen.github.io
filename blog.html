@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,11 +9,14 @@
   <link rel="icon" href="avatar.svg?v=2" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/blog.css" />
 </head>
+
 <body>
 
   <div class="bg-animation" aria-hidden="true">
@@ -42,11 +46,13 @@
         <ul class="menu-links">
           <li><a href="index.html"><i class="bx bx-home icon"></i><span class="text">Home</span></a></li>
           <li><a href="about.html"><i class="bx bx-user icon"></i><span class="text">About</span></a></li>
-          <li><a href="experience.html"><i class="bx bx-briefcase icon"></i><span class="text">Experience</span></a></li>
+          <li><a href="experience.html"><i class="bx bx-briefcase icon"></i><span class="text">Experience</span></a>
+          </li>
           <li><a href="projects.html"><i class="bx bx-code-alt icon"></i><span class="text">Projects</span></a></li>
           <li><a href="blog.html"><i class="bx bx-news icon"></i><span class="text">Blog</span></a></li>
           <li><a href="writeups.html"><i class="bx bx-edit-alt icon"></i><span class="text">Write-ups</span></a></li>
-          <li><a href="certificates.html"><i class="bx bx-certification icon"></i><span class="text">Certificates</span></a></li>
+          <li><a href="certificates.html"><i class="bx bx-certification icon"></i><span
+                class="text">Certificates</span></a></li>
           <li><a href="rewards.html"><i class="bx bx-trophy icon"></i><span class="text">Rewards</span></a></li>
           <li><a href="contact.html"><i class="bx bx-envelope icon"></i><span class="text">Contact</span></a></li>
           <li><a href="search.html"><i class="bx bx-search-alt icon"></i><span class="text">Search</span></a></li>
@@ -85,31 +91,13 @@
       <!-- Blog Grid -->
       <div class="blog-grid">
 
-        <!-- Sample Blog Post 1 -->
-        <article class="blog-card" data-category="tutorial">
+        <!-- Real Blog Post -->
+        <article class="blog-card" data-category="research"
+          onclick="window.location.href='https://www.notion.so/blogcuanhat/Windows-Event-Logs-and-System-Monitor-Research-32e6f496a0cc804ea378dc1e3e040ea9'">
           <div class="blog-thumbnail">
-            <img src="https://via.placeholder.com/400x250/1a1a1a/FAA81A?text=Coming+Soon" alt="Blog post thumbnail" loading="lazy" />
-            <div class="blog-overlay">
-              <span class="read-more">Read More <i class="bx bx-right-arrow-alt"></i></span>
-            </div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-tag tutorial">TUTORIAL</span>
-              <span class="blog-date"><i class="bx bx-calendar"></i> 2026-03-25</span>
-            </div>
-            <h3 class="blog-title">Getting Started with Web Security Testing</h3>
-            <p class="blog-excerpt">Learn the fundamentals of web application security testing, including common vulnerabilities and how to identify them.</p>
-            <div class="blog-footer">
-              <span class="read-time"><i class="bx bx-time-five"></i> 5 min read</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Sample Blog Post 2 -->
-        <article class="blog-card" data-category="research">
-          <div class="blog-thumbnail">
-            <img src="https://via.placeholder.com/400x250/1a1a1a/9333EA?text=Coming+Soon" alt="Blog post thumbnail" loading="lazy" />
+            <img
+              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+              alt="Windows Event Logs" loading="lazy" />
             <div class="blog-overlay">
               <span class="read-more">Read More <i class="bx bx-right-arrow-alt"></i></span>
             </div>
@@ -117,100 +105,16 @@
           <div class="blog-content">
             <div class="blog-meta">
               <span class="blog-tag research">RESEARCH</span>
-              <span class="blog-date"><i class="bx bx-calendar"></i> 2026-03-20</span>
+              <span class="blog-date"><i class="bx bx-calendar"></i> 2026-05-02</span>
             </div>
-            <h3 class="blog-title">Modern Cryptographic Attacks Explained</h3>
-            <p class="blog-excerpt">Deep dive into contemporary cryptographic vulnerabilities and attack vectors in real-world applications.</p>
-            <div class="blog-footer">
-              <span class="read-time"><i class="bx bx-time-five"></i> 8 min read</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Sample Blog Post 3 -->
-        <article class="blog-card" data-category="tools">
-          <div class="blog-thumbnail">
-            <img src="https://via.placeholder.com/400x250/1a1a1a/EF4444?text=Coming+Soon" alt="Blog post thumbnail" loading="lazy" />
-            <div class="blog-overlay">
-              <span class="read-more">Read More <i class="bx bx-right-arrow-alt"></i></span>
-            </div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-tag tools">TOOLS</span>
-              <span class="blog-date"><i class="bx bx-calendar"></i> 2026-03-15</span>
-            </div>
-            <h3 class="blog-title">Essential Tools for CTF Challenges</h3>
-            <p class="blog-excerpt">A comprehensive guide to the must-have tools for competing in Capture The Flag competitions.</p>
+            <h3 class="blog-title">Windows Event Logs and System Monitor Research</h3>
+            <p class="blog-excerpt">A comprehensive deep dive into Windows logging mechanisms and the use of Sysmon for
+              security monitoring.</p>
             <div class="blog-footer">
               <span class="read-time"><i class="bx bx-time-five"></i> 10 min read</span>
             </div>
           </div>
         </article>
-
-        <!-- Sample Blog Post 4 -->
-        <article class="blog-card" data-category="ctf">
-          <div class="blog-thumbnail">
-            <img src="https://via.placeholder.com/400x250/1a1a1a/10B981?text=Coming+Soon" alt="Blog post thumbnail" loading="lazy" />
-            <div class="blog-overlay">
-              <span class="read-more">Read More <i class="bx bx-right-arrow-alt"></i></span>
-            </div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-tag ctf">CTF</span>
-              <span class="blog-date"><i class="bx bx-calendar"></i> 2026-03-10</span>
-            </div>
-            <h3 class="blog-title">Tips for Winning CTF Competitions</h3>
-            <p class="blog-excerpt">Strategies and tactics from experienced players to help you excel in competitive cybersecurity challenges.</p>
-            <div class="blog-footer">
-              <span class="read-time"><i class="bx bx-time-five"></i> 6 min read</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Sample Blog Post 5 -->
-        <article class="blog-card" data-category="tutorial">
-          <div class="blog-thumbnail">
-            <img src="https://via.placeholder.com/400x250/1a1a1a/F59E0B?text=Coming+Soon" alt="Blog post thumbnail" loading="lazy" />
-            <div class="blog-overlay">
-              <span class="read-more">Read More <i class="bx bx-right-arrow-alt"></i></span>
-            </div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-tag tutorial">TUTORIAL</span>
-              <span class="blog-date"><i class="bx bx-calendar"></i> 2026-03-05</span>
-            </div>
-            <h3 class="blog-title">Binary Exploitation: From Zero to Hero</h3>
-            <p class="blog-excerpt">Master the art of binary exploitation with this comprehensive guide for beginners to advanced techniques.</p>
-            <div class="blog-footer">
-              <span class="read-time"><i class="bx bx-time-five"></i> 15 min read</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Sample Blog Post 6 -->
-        <article class="blog-card" data-category="research">
-          <div class="blog-thumbnail">
-            <img src="https://via.placeholder.com/400x250/1a1a1a/EC4899?text=Coming+Soon" alt="Blog post thumbnail" loading="lazy" />
-            <div class="blog-overlay">
-              <span class="read-more">Read More <i class="bx bx-right-arrow-alt"></i></span>
-            </div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-tag research">RESEARCH</span>
-              <span class="blog-date"><i class="bx bx-calendar"></i> 2026-03-01</span>
-            </div>
-            <h3 class="blog-title">Supply Chain Attacks in 2026</h3>
-            <p class="blog-excerpt">Analysis of recent supply chain attack trends and how organizations can protect themselves.</p>
-            <div class="blog-footer">
-              <span class="read-time"><i class="bx bx-time-five"></i> 12 min read</span>
-            </div>
-          </div>
-        </article>
-
       </div>
 
       <!-- Empty State (hidden by default) -->
@@ -229,4 +133,5 @@
   <script src="assets/js/script.js"></script>
   <script src="assets/js/blog.js"></script>
 </body>
+
 </html>
